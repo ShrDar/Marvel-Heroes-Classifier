@@ -88,16 +88,6 @@ target/
 # Exclude virtual environment
 .venv/
 
-# Exclude trained models
-models/
-
-# ML models
-*.h5
-*.keras
-*.pt
-*.pth
-*.pkl
-
 # exclude data from source control by default
 data/
 
