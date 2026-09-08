@@ -36,15 +36,15 @@ function PredictionResult({
             PREDICTED HERO
           </p>
 
-          <p className="mt-4 font-raleway text-sm tracking-[2px]">
-            Check Classifiable Heros
+          <p className="mt-4 font-raleway text-sm tracking-[2px] text-[#4a4a4a]">
+            Check Classifiable Heroes from info
           </p>
         </div>
         <button
           type="button"
           onClick={() => setIsInfoOpen(true)}
           aria-label="View classifiable heroes"
-          className="fixed cursor-pointer top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border-4 border-black bg-white font-bold shadow-[2px_2px_0_0_#000]"
+          className="fixed cursor-pointer top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border-4 border-black bg-transparent font-bold shadow-[2px_2px_0_0_#000]"
         >
           i
         </button>

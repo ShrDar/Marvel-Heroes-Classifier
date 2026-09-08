@@ -17,6 +17,8 @@ function App() {
 
   const [isPredicting, setIsPredicting] = useState(false);
 
+  const [resetKey, setResetKey] = useState(0);
+
   const [error, setError] = useState<string | null>(null);
 
   function handleImageSelect(file: File) {
@@ -27,6 +29,16 @@ function App() {
 
     setError(null);
   }
+
+  function handleReset() {
+    setSelectedFile(null);
+    setPredictedClass(null);
+    setConfidence(null);
+    setError(null);
+    setIsPredicting(false);
+
+    setResetKey((key) => key + 1);
+}
 
   async function handlePrediction() {
     if (!selectedFile) {
@@ -64,9 +76,20 @@ function App() {
 
       <section className="flex lg:flex-row flex-col justify-center items-start gap-10 w-[90%] lg:w-[70%]">
         <div className="w-full lg:w-[60%]">
-          <ImageUploader onImageSelect={handleImageSelect} />
+          <ImageUploader onImageSelect={handleImageSelect} resetKey={resetKey} />
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-3">
+            { selectedFile && (
+
+            <ComicButton
+              disabled={!selectedFile || isPredicting}
+              onClick={() => handleReset()}
+            >
+              REMOVE
+            </ComicButton>
+
+            )}
+
             <ComicButton
               disabled={!selectedFile || isPredicting}
               onClick={handlePrediction}

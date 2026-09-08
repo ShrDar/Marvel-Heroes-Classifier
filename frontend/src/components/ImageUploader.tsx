@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface ImageUploaderProps {
   onImageSelect: (file: File) => void;
+  resetKey: number;
 }
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 function ImageUploader({
   onImageSelect,
+  resetKey,
 }: ImageUploaderProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     return () => {
@@ -19,6 +22,15 @@ function ImageUploader({
       }
     };
   }, [preview]);
+
+  useEffect(() => {
+  setPreview(null);
+  setError(null);
+
+  if (inputRef.current) {
+    inputRef.current.value = "";
+  }
+}, [resetKey]);
 
   function handleImageChange(
     event: React.ChangeEvent<HTMLInputElement>,
@@ -64,16 +76,17 @@ function ImageUploader({
         ) : (
           <>
             <span className="font-comic text-4xl">
-              DROP YOUR HERO HERE!
+              DROP YOUR HERO HERE
             </span>
 
-            <span className="mt-3 font-raleway text-sm tracking-[2px]">
+            <span className="mt-3 font-raleway text-sm tracking-[2px] text-[#4a4a4a]">
               Tap and Select Your Hero
             </span>
           </>
         )}
 
         <input
+          ref={inputRef}
           id="hero-image"
           type="file"
           accept="image/*"
