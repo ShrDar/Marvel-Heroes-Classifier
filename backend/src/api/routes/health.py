@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 router = APIRouter(
     prefix="/health",
@@ -7,7 +7,8 @@ router = APIRouter(
 
 
 @router.get("")
-async def health_check():
+async def health_check(request: Request):
     return {
         "status": "healthy",
+        "frontend_url": request.app.state.settings.FRONTEND_URL,
     }
