@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import ComicButton from "./components/ComicButton";
 import HeroHeader from "./components/HeroHeader";
-import HeroInfoModal from "./components/HeroInfoModal";
 import ImageUploader from "./components/ImageUploader";
 import PredictionResult from "./components/PredictionResult";
 import { predictHero } from "../services/api";
@@ -16,8 +15,6 @@ function App() {
 
   const [confidence, setConfidence] = useState<number | null>(null);
 
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
-
   const [isPredicting, setIsPredicting] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
@@ -25,11 +22,9 @@ function App() {
   function handleImageSelect(file: File) {
     setSelectedFile(file);
 
-    // Clear previous prediction when a new image is selected.
     setPredictedClass(null);
     setConfidence(null);
 
-    // Clear previous error.
     setError(null);
   }
 
@@ -58,12 +53,17 @@ function App() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="relative flex min-h-screen flex-col items-center lg:gap-10 overflow-hidden text-center pb-20">
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center blur-xs "
+        style={{
+          backgroundImage: "url('/bg.png')",
+        }}
+      />
       <HeroHeader />
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-12 lg:grid-cols-2">
-        {/* Image upload + prediction */}
-        <div>
+      <section className="flex lg:flex-row flex-col justify-center items-start gap-10 w-[90%] lg:w-[70%]">
+        <div className="w-full lg:w-[60%]">
           <ImageUploader onImageSelect={handleImageSelect} />
 
           <div className="mt-8 flex justify-center">
@@ -82,28 +82,13 @@ function App() {
           )}
         </div>
 
-        {/* Prediction result */}
         <PredictionResult
           predictedClass={predictedClass}
           confidence={confidence}
         />
       </section>
 
-      {/* Hero information button */}
-      <button
-        type="button"
-        onClick={() => setIsInfoOpen(true)}
-        aria-label="View classifiable heroes"
-        className="fixed bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full border-4 border-black bg-white text-xl font-bold shadow-[4px_4px_0_0_#000]"
-      >
-        i
-      </button>
-
-      {/* Hero information modal */}
-      <HeroInfoModal
-        isOpen={isInfoOpen}
-        onClose={() => setIsInfoOpen(false)}
-      />
+      
     </main>
   );
 }

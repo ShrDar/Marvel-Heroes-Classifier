@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const heroes = [
   {
@@ -66,20 +67,20 @@ function HeroInfoModal({
     return null;
   }
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl rounded-xl border-4 border-black bg-white p-6 shadow-[10px_10px_0_0_#000]"
+        className="relative max-h-[90vh] w-[90vw] max-w-7xl overflow-y-auto rounded-xl border-4 border-black bg-transparent backdrop-blur-3xl p-8 text-white shadow-[1px_1px_0_0_#000]"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close hero list"
-          className="absolute right-4 top-4 text-3xl font-bold"
+          className="absolute right-5 top-4 cursor-pointer text-4xl font-bold leading-none"
         >
           ×
         </button>
@@ -88,11 +89,11 @@ function HeroInfoModal({
           CLASSIFIABLE HEROES
         </h2>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
           {heroes.map((hero) => (
             <div
               key={hero.name}
-              className="overflow-hidden rounded-lg border-3 border-black"
+              className="overflow-hidden rounded-lg border-4 border-black bg-transparent shadow-[4px_4px_0_0_#000]"
             >
               <div className="aspect-square overflow-hidden">
                 <img
@@ -102,14 +103,15 @@ function HeroInfoModal({
                 />
               </div>
 
-              <p className="border-t-3 border-black px-2 py-2 text-center font-comic text-lg">
+              <p className="border-t-4 border-black px-2 py-3 text-center font-comic text-xl">
                 {hero.name}
               </p>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

@@ -50,16 +50,16 @@ function ImageUploader({
   }
 
   return (
-    <section>
+    <section className="w-full">
       <label
         htmlFor="hero-image"
-        className="flex min-h-96 cursor-pointer flex-col items-center justify-center rounded-xl border-4 border-black bg-white p-8 text-center shadow-[8px_8px_0_0_#000]"
+        className="flex min-h-96 cursor-pointer flex-col items-center justify-center rounded-xl border-4 border-black bg-transparent backdrop-blur-2xl backdrop-brightness-125 text-center shadow-[8px_8px_0_0_#000]"
       >
         {preview ? (
           <img
             src={preview}
             alt="Selected hero"
-            className="max-h-72 max-w-full rounded-lg object-contain"
+            className="lg:max-h-90 max-w-full rounded-lg shadow-[90px_-10px_200px_#000]"
           />
         ) : (
           <>
@@ -67,8 +67,8 @@ function ImageUploader({
               DROP YOUR HERO HERE!
             </span>
 
-            <span className="mt-3">
-              Click to choose an image
+            <span className="mt-3 font-raleway text-sm tracking-[2px]">
+              Tap and Select Your Hero
             </span>
           </>
         )}
